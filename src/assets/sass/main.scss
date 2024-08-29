@@ -1,0 +1,40 @@
+html {
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    sans-serif;
+  height: 100%;
+  scrollbar-color: $gray-1;
+  scrollbar-width: thin;
+  font-size: 10px;
+
+  @media screen and (min-width: $breakpoint-sm) {
+    font-size: 15px;
+  }
+
+  @media screen and (min-width: $breakpoint-md) {
+    font-size: 20px;
+  }
+}
+
+html * {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+}
+
+#app {
+  height: 100%;
+}
