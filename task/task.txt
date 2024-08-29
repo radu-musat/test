@@ -1,0 +1,14 @@
+# Create a registration form
+
+Implement the form in a Vue project matching the design as close as possible.
+Keeping good user experience in mind, we need to validate the data and guide the users if they enter invalid information.
+
+- use any version of Vue (2, 3)
+- use your own colors if you'd like
+- you may use the same icon for all fields to not waste time (provided)
+- native radio and checkbox inputs are a bit odd. can you make them look better?
+- it would be nice to allow the user to toggle password visibility
+- figure out a way to let the user know where they made a mistake
+- validate the data at each step and display it at the end as if you would be sending it to the server (a simple alert will do)
+- validations: required, min length, password match, terms and conditions accepted
+- the form should be responsive, perhaps a single column on small screens.
