@@ -135,10 +135,6 @@ const passwordType: ComputedRef<string> = computed((): string => {
       font-size: 1rem;
     }
   }
-
-  &.tel input {
-    //padding-left: 4rem;
-  }
 }
 .input-errors {
   color: $red-1;
