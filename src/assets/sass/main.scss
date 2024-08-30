@@ -18,10 +18,14 @@ html {
   font-size: 10px;
 
   @media screen and (min-width: $breakpoint-sm) {
-    font-size: 15px;
+    font-size: 14px;
   }
 
   @media screen and (min-width: $breakpoint-md) {
+    font-size: 16px;
+  }
+
+  @media screen and (min-width: $breakpoint-xxl) {
     font-size: 20px;
   }
 }

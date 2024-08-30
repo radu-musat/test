@@ -1,50 +1,76 @@
 <template>
-  <div class="input-element">
-    <i :class="props.icon"></i>
-    <input :type="passwordType" :placeholder="props.placeholder" />
-    <button
-      v-if="props.type === 'password'"
-      @click.prevent="passwordIsVisible = !passwordIsVisible"
-      :class="{ visible: passwordIsVisible }"
+  <div class="input-element-container">
+    <div
+      class="input-element"
+      :class="{ tel: props.type === 'tel' }"
+      :data-prefix="props.telPrefix"
     >
-      <i class="toggle"></i>
-    </button>
+      <i :class="props.icon"></i>
+      <input
+        :type="passwordType"
+        :placeholder="props.placeholder"
+        autocomplete="true"
+        v-model="model"
+      />
+      <button
+        v-if="props.type === 'password'"
+        @click.prevent="$emit('togglePasswordVisibility')"
+        :class="{ visible: passwordIsVisible }"
+      >
+        <i class="toggle"></i>
+      </button>
+    </div>
+    <small class="input-errors" v-for="error of errors" :key="error.$uid">
+      <div class="error-msg">{{ error.$message }}</div>
+    </small>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import type { ComputedRef } from 'vue'
 interface Props {
-  type: string
-  placeholder: string
-  icon: 'default' | 'alternate'
+  type?: string
+  placeholder?: string
+  icon?: 'default' | 'alternate'
+  passwordIsVisible?: boolean
+  errors?: any[]
+  telPrefix?: string
 }
+
+const model = defineModel()
 const props = withDefaults(defineProps<Props>(), {
   type: 'text',
   placeholder: 'Your name',
-  icon: 'default'
+  icon: 'default',
+  passwordIsVisible: false,
+  telPrefix: '60'
 })
 
-const passwordIsVisible = ref(false)
+const emit = defineEmits(['togglePasswordVisibility'])
+
 const passwordType: ComputedRef<string> = computed((): string => {
   return props.type !== 'password'
     ? props.type
-    : props.type === 'password' && passwordIsVisible.value
+    : props.type === 'password' && props.passwordIsVisible
       ? 'text'
       : 'password'
 })
 </script>
 
 <style scoped lang="scss">
+.input-element-container {
+  flex-grow: 1;
+}
+
 .input-element {
   align-items: center;
   border: 2px solid $gray-2;
   border-radius: 45px;
   display: flex;
-  flex-grow: 1;
   height: 4.7rem;
   padding: 1rem;
+  position: relative;
 
   button {
     border: 0;
@@ -109,5 +135,31 @@ const passwordType: ComputedRef<string> = computed((): string => {
       font-size: 1rem;
     }
   }
+
+  &.tel input {
+    //padding-left: 4rem;
+  }
+}
+.input-errors {
+  color: $red-1;
+  display: block;
+  font-size: 10px;
+  padding-top: 5px;
+  text-align: center;
+
+  @media screen and (min-width: $breakpoint-md) {
+    font-size: 14px;
+    text-align: left;
+    padding: 5px 0 0 3.5rem;
+  }
+}
+
+.tel::before {
+  content: attr(data-prefix);
+  display: block;
+  position: absolute;
+  left: 4.2rem;
+  top: 50%;
+  transform: translateY(-60%);
 }
 </style>
